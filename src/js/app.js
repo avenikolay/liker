@@ -2,42 +2,43 @@
 const rootEl = document.getElementById('root');
 let nextId = 1
 
-function action(actionType, post, event) {
+function action(actionType, postData, event) {
     event.preventDefault();
 
+    const DOMPost = document.getElementById('post'+postData.id);
+    
     if (actionType === 'like') {
-        if (post.isLikedByMe) {
-            post.likes--;
-            post.isLikedByMe = false;
+        if (postData.isLikedByMe) {
+            postData.likes--;
+            postData.isLikedByMe = false;
         } else {
-            post.likes++;
-            post.isLikedByMe = true;
+            postData.likes++;
+            postData.isLikedByMe = true;
 
-            if (post.isDislikedByMe) {
-                post.dislikes--;
-                post.isDislikedByMe = false;
+            if (postData.isDislikedByMe) {
+                postData.dislikes--;
+                postData.isDislikedByMe = false;
             }
         }
     }
     if (actionType === 'dislike') {
-        if (post.isDislikedByMe) {
-            post.dislikes--;
-            post.isDislikedByMe = false;
+        if (postData.isDislikedByMe) {
+            postData.dislikes--;
+            postData.isDislikedByMe = false;
         } else {
-            post.dislikes++;
-            post.isDislikedByMe = true;
+            postData.dislikes++;
+            postData.isDislikedByMe = true;
 
-            if (post.isLikedByMe) {
-                post.likes--;
-                post.isLikedByMe = false;
+            if (postData.isLikedByMe) {
+                postData.likes--;
+                postData.isLikedByMe = false;
             }
         }
     }
 
-    renderActions(post);
+    renderActions(postData, DOMPost);
 }
-function renderActions(post) {
-    const DOMPost = document.getElementById('post'+post.id);
+function renderActions(post, DOMPost) {
     const likeBtn = DOMPost.getElementsByClassName('post__likeBtn')[0];
     const dislikeBtn = DOMPost.getElementsByClassName('post__dislikeBtn')[0];
 
